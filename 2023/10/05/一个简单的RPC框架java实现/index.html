@@ -22,7 +22,7 @@
 
   
 
-  <title>观察者模式+配置中心动态Demo | 潜游</title>
+  <title>一个简单的RPC框架java实现 | 潜游</title>
 
   
 
@@ -102,12 +102,17 @@
     <div class="header-content">
       <div class="post-text layout-block">
         <div class="layout-margin">
-          <h1 class="title-wrap">观察者模式+配置中心动态Demo</h1>
+          <h1 class="title-wrap">一个简单的RPC框架java实现</h1>
           <h2 class="title-sub-wrap">
             <strong>Tom Liu</strong>
             <span>发布于</span>
-            <time  class="article-date" datetime="2023-11-05T06:31:51.000Z" itemprop="datePublished">2023-11-05</time>
+            <time  class="article-date" datetime="2023-10-05T06:19:41.000Z" itemprop="datePublished">2023-10-05</time>
           </h2>
+          
+            <h2 class="last-time">
+              <span>最后更新于</span>
+              <time  class="article-updated" datetime="2023-11-05T06:36:47.014Z" itemprop="dateUpdated">2023-11-05</time>
+            </h2>
           
           
           <ul class="wrap-list dark">
@@ -137,12 +142,26 @@
       
       
       <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
-        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line">import com.google.common.collect.Lists;</span><br><span class="line">import org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line">import org.springframework.boot.CommandLineRunner;</span><br><span class="line">import org.springframework.boot.SpringApplication;</span><br><span class="line">import org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line">import org.springframework.stereotype.Component;</span><br><span class="line">import org.springframework.stereotype.Service;</span><br><span class="line"></span><br><span class="line">import java.util.HashMap;</span><br><span class="line">import java.util.List;</span><br><span class="line">import java.util.Map;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @Author: LLH</span><br><span class="line"> * @Date:2023/11/2</span><br><span class="line"> * @Description:</span><br><span class="line"> */</span><br><span class="line">@SpringBootApplication</span><br><span class="line">public class ObserverDemo implements CommandLineRunner &#123;</span><br><span class="line"></span><br><span class="line">    /** 这里可以注册多个观察者，这个demo只注册了一个消息通知 */</span><br><span class="line">    @Autowired</span><br><span class="line">    List&lt;Observer&gt; observerList;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        new SpringApplication(ObserverDemo.class).run(args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /** 容器启动即执行 */</span><br><span class="line">    @Override</span><br><span class="line">    public void run(String... args) &#123;</span><br><span class="line">        sendMsg(&quot;bizType1&quot;, &quot;业务1的内容&quot;);</span><br><span class="line">        sendMsg(&quot;bizType2&quot;, &quot;业务2的内容&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    /** client调用，指明业务和需要发送的内容 */</span><br><span class="line">    private void sendMsg(String bizType, String content) &#123;</span><br><span class="line">        observerList.forEach(observer -&gt; observer.notify(bizType, content));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 观察者，JDK自带有观察者，定义接口不指定实现</span><br><span class="line"> */</span><br><span class="line">interface Observer &#123;</span><br><span class="line"></span><br><span class="line">    void notify(String bizType, String content);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 发送消息的观察者, 也实现了发送策略的组合和选择</span><br><span class="line"> */</span><br><span class="line">@Component</span><br><span class="line">class SendMsgObserver implements Observer &#123;</span><br><span class="line"></span><br><span class="line">    /** 所有发送实现，均可见*/</span><br><span class="line">    @Autowired</span><br><span class="line">    private List&lt;SendMsgService&gt; sendMsgServices;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void notify(String bizType, String content) &#123;</span><br><span class="line">        // 获取业务类型 -&gt; 策略组合</span><br><span class="line">        List&lt;String&gt; strategy = ConfigCenter.getStrategy(bizType);</span><br><span class="line">        sendMsgServices.forEach(sendMsgService -&gt; &#123;</span><br><span class="line">            // 配置的策略在内，发送</span><br><span class="line">            if (strategy.contains(sendMsgService.getClass().getDeclaredAnnotation(Service.class).value())) &#123;</span><br><span class="line">                sendMsgService.sendMsg(content);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 模拟配置中心, nacos/zookeeper/redis/MySQL等均可。</span><br><span class="line"> */</span><br><span class="line">class ConfigCenter &#123;</span><br><span class="line">    private static Map&lt;String, String&gt; sendMsgConfig = new HashMap&lt;&gt;();</span><br><span class="line">    static &#123;</span><br><span class="line">        sendMsgConfig.put(&quot;bizType1&quot;, &quot;email,sms&quot;);</span><br><span class="line">        sendMsgConfig.put(&quot;bizType2&quot;, &quot;sms&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    // 根据业务获取配置，新业务，配置key-value即可</span><br><span class="line">    public static List&lt;String&gt; getStrategy(String bizType) &#123;</span><br><span class="line">        return Lists.newArrayList(sendMsgConfig.get(bizType).split(&quot;,&quot;));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 发送消息的能力抽象，可以理解为策略接口</span><br><span class="line"> */</span><br><span class="line">interface SendMsgService &#123;</span><br><span class="line">    /** 发送内容*/</span><br><span class="line">    void sendMsg(String content);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 两种发送方式实现</span><br><span class="line"> */</span><br><span class="line">@Service(&quot;sms&quot;)</span><br><span class="line">class SmsSendService implements SendMsgService &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void sendMsg(String content) &#123;</span><br><span class="line">        System.out.println(&quot;短信发送:&quot; + content);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">@Service(&quot;email&quot;)</span><br><span class="line">class EmailSendService implements SendMsgService &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void sendMsg(String content) &#123;</span><br><span class="line">        System.out.println(&quot;邮件发送:&quot; + content);</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+        
       </section>
 
       
       
         <nav class="article-nav">
+          
+            <div class="article-nav-item layout-padding">
+  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
+    
+    <div class="card-text">
+      
+        <a href="/2023/11/03/hello-world/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">Hello World</h2>
+        </a>
+      
+      <div class="card-text--row">Newer</div>
+    </div>
+  </article>
+</div>
           
           
             <div class="article-nav-item layout-padding">
@@ -150,8 +169,8 @@
     
     <div class="card-text">
       
-        <a href="/2023/11/05/%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84RPC%E6%A1%86%E6%9E%B6java%E5%AE%9E%E7%8E%B0/" itemprop="url">
-          <h2 class="card-text--title text-ellipsis">一个简单的RPC框架java实现</h2>
+        <a href="/2023/09/05/java%E4%B8%ADstream%E6%B5%81%E4%BD%BF%E7%94%A8/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">java中stream流使用</h2>
         </a>
       
       <div class="card-text--row">Older</div>
